@@ -24,7 +24,7 @@ public class UserService {
         //repository 의 save 메서드 호출 ( 조건 . entity 객체를 넘겨줘야 함)
     }
 
-    /* 회원가입 시, 유효성 체크 */
+    /* 회원가입 시, 유효성 체크 *//*
     public Map<String, String> validateHandling(Errors errors) {
         Map<String, String> validatorResult = new HashMap<>();
 
@@ -34,6 +34,6 @@ public class UserService {
         }
         return validatorResult;
     }
-
+*/
 
 }

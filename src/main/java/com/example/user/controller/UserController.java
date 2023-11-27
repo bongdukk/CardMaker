@@ -34,25 +34,33 @@ public class UserController {
         return "index";
     }
 
+/*
 
     @PostMapping("/auth/joinProc")
     public String joinProc(@Valid UserDto userDto, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            /* 회원가입 실패시 입력 데이터 값을 유지 */
+            */
+/* 회원가입 실패시 입력 데이터 값을 유지 *//*
+
             model.addAttribute("userDto", userDto);
 
-            /* 유효성 통과 못한 필드와 메시지를 핸들링 */
+            */
+/* 유효성 통과 못한 필드와 메시지를 핸들링 *//*
+
             Map<String, String> validatorResult = userService.validateHandling(errors);
             for (String key : validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
             }
 
-            /* 회원가입 페이지로 다시 리턴 */
+            */
+/* 회원가입 페이지로 다시 리턴 *//*
+
             return "/user/save";
         }
         userService.save(userDto);
         return "index";
     }
+*/
 
 
 
