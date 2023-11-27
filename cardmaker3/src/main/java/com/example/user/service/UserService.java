@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,4 +37,17 @@ public class UserService {
     }
 */
 
+    // 사용자 인증을 위한 메서드
+    public boolean authenticateUser(String userId, String password) {
+        Optional<UserEntity> optionalUserEntity = userRepository.findByUserId(userId);
+
+        // 아이디로 사용자를 찾지 못하면 로그인 실패
+        if (optionalUserEntity.isPresent()) {
+            UserEntity userEntity = optionalUserEntity.get();
+            // 비밀번호 검증
+            return userEntity.getPassword().equals(password);
+        }
+
+        return false;
+    }
 }
