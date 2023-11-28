@@ -5,14 +5,15 @@ import com.example.user.dto.UserDto;
 import com.example.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +33,17 @@ public class UserController {
         System.out.println("userDto = " + userDto);
         userService.save(userDto);
         return "index";
+    }
+
+    // 로그인 처리 요청
+    @PostMapping("/designmates/login")
+    public String login(@RequestParam String userId, @RequestParam String password, Model model) {
+        // 사용자 인증을 위한 메서드 호출
+        if (userService.authenticateUser(userId, password)) {
+            return "redirect:/designmates"; // 로그인 성공 시 대시보드 페이지로 리다이렉트합니다.
+        } else {
+            return "/designmates/login"; // 로그인 페이지로 다시 리다이렉트합니다.
+        }
     }
 
 /*
