@@ -22,12 +22,12 @@ public class UserController {
     private final UserService userService;
 
     //회원가입 페이지 출력 요청
-    @GetMapping("/user/save")
+    @GetMapping("/designmates/signup")
     public String saveForm() {
         return "save";
     }
 
-    @PostMapping("/user/save")
+    @PostMapping("/designmates/signup")
     public String save(@ModelAttribute UserDto userDto) {
         System.out.println("UserController.save");
         System.out.println("userDto = " + userDto);
