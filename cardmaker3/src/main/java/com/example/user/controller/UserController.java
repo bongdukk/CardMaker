@@ -18,33 +18,30 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    //생성자 주입
     private final UserService userService;
 
-    //회원가입 페이지 출력 요청
+    // 회원가입 페이지 출력 요청
     @GetMapping("/designmates/signup")
-    public String saveForm() {
-        return "save";
+    public ResponseEntity<String> saveForm() {
+        return ResponseEntity.ok("save"); // String 형태로 "save" 반환
     }
 
     @PostMapping("/designmates/signup")
-    public String save(@ModelAttribute UserDto userDto) {
-        System.out.println("UserController.save");
-        System.out.println("userDto = " + userDto);
+    public ResponseEntity<UserDto> save(@ModelAttribute UserDto userDto) {
         userService.save(userDto);
-        return "index";
+        return ResponseEntity.ok(userDto); // UserDto 반환
     }
 
     // 로그인 처리 요청
     @PostMapping("/designmates/login")
-    public String login(@RequestParam String userId, @RequestParam String password, Model model) {
-        // 사용자 인증을 위한 메서드 호출
+    public ResponseEntity<String> login(@RequestParam String userId, @RequestParam String password, Model model) {
         if (userService.authenticateUser(userId, password)) {
-            return "redirect:/designmates"; // 로그인 성공 시 대시보드 페이지로 리다이렉트합니다.
+            return ResponseEntity.ok("redirect:/designmates"); // 로그인 성공 시 페이지 주소 반환
         } else {
-            return "/designmates/login"; // 로그인 페이지로 다시 리다이렉트합니다.
+            return ResponseEntity.ok("/designmates/login"); // 로그인 실패 시 페이지 주소 반환
         }
     }
+
 
 /*
 
