@@ -23,22 +23,22 @@ public class UserController {
     // 회원가입 페이지 출력 요청
     @GetMapping("/designmates/signup")
     public ResponseEntity<String> saveForm() {
-        return ResponseEntity.ok("save"); // String 형태로 "save" 반환
+        return ResponseEntity.ok("save");
     }
 
     @PostMapping("/designmates/signup")
-    public ResponseEntity<UserDto> save(@ModelAttribute UserDto userDto) {
+    public ResponseEntity<UserDto> save(@RequestBody UserDto userDto) {
         userService.save(userDto);
-        return ResponseEntity.ok(userDto); // UserDto 반환
+        return ResponseEntity.ok(userDto);
     }
 
     // 로그인 처리 요청
     @PostMapping("/designmates/login")
     public ResponseEntity<String> login(@RequestParam String userId, @RequestParam String password, Model model) {
         if (userService.authenticateUser(userId, password)) {
-            return ResponseEntity.ok("redirect:/designmates"); // 로그인 성공 시 페이지 주소 반환
+            return ResponseEntity.ok("redirect:/designmates");
         } else {
-            return ResponseEntity.ok("/designmates/login"); // 로그인 실패 시 페이지 주소 반환
+            return ResponseEntity.ok("/designmates/login");
         }
     }
 
