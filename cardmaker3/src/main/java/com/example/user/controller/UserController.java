@@ -34,7 +34,7 @@ public class UserController {
 
     // 로그인 처리 요청
     @PostMapping("/designmates/login")
-    public ResponseEntity<String> login(@RequestParam String userId, @RequestParam String password, Model model) {
+    public ResponseEntity<String> login(@RequestParam String userId, @RequestParam String password) {
         if (userService.authenticateUser(userId, password)) {
             return ResponseEntity.ok("redirect:/designmates");
         } else {
