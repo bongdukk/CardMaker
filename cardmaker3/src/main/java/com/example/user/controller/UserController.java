@@ -34,14 +34,13 @@ public class UserController {
 
     // 로그인 처리 요청
     @PostMapping("/designmates/login")
-    public ResponseEntity<String> login(@RequestBody UserDto userDto) {
+    public ResponseEntity<Boolean> login(@RequestBody UserDto userDto) {
         String userId = userDto.getUserId();
         String password = userDto.getPassword();
-        if (userService.authenticateUser(userId, password)) {
-            return ResponseEntity.ok("redirect:/designmates");
-        } else {
-            return ResponseEntity.ok("/designmates/login");
-        }
+
+        boolean isAuthenticated = userService.authenticateUser(userId, password);
+
+        return ResponseEntity.ok(isAuthenticated);
     }
 
 
