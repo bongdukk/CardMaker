@@ -15,36 +15,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class UserController {
-    //생성자 주입
     private final UserService userService;
 
-    //회원가입 페이지 출력 요청
-    @GetMapping("/user/save")
-    public String saveForm() {
-        return "save";
+    // 회원가입 페이지 출력 요청
+    @GetMapping("/designmates/signup")
+    public ResponseEntity<String> saveForm() {
+        return ResponseEntity.ok("save");
     }
 
-    @PostMapping("/user/save")
-    public String save(@ModelAttribute UserDto userDto) {
-        System.out.println("UserController.save");
-        System.out.println("userDto = " + userDto);
+    @PostMapping("/designmates/signup")
+    public ResponseEntity<UserDto> save(@RequestBody UserDto userDto) {
         userService.save(userDto);
-        return "index";
+        return ResponseEntity.ok(userDto);
     }
 
     // 로그인 처리 요청
     @PostMapping("/designmates/login")
-    public String login(@RequestParam String userId, @RequestParam String password, Model model) {
-        // 사용자 인증을 위한 메서드 호출
+    public ResponseEntity<String> login(@RequestBody UserDto userDto) {
+        String userId = userDto.getUserId();
+        String password = userDto.getPassword();
         if (userService.authenticateUser(userId, password)) {
-            return "redirect:/designmates"; // 로그인 성공 시 대시보드 페이지로 리다이렉트합니다.
+            return ResponseEntity.ok("redirect:/designmates");
         } else {
-            return "/designmates/login"; // 로그인 페이지로 다시 리다이렉트합니다.
+            return ResponseEntity.ok("/designmates/login");
         }
     }
+
 
 /*
 
